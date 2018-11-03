@@ -1,0 +1,63 @@
+
+.dropwDownContent a{
+    text-decoration: none;
+    color: black;
+}
+.dropDownButton{
+    background-color: green;
+    color: black;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+}
+.dropDown{
+    position: relative;
+    display: inline-block;
+}
+.dropDownContent{
+    display: none;
+    position: absolute;
+    background-color: gray;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+.dropDownContent a{
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropDownContent a:hover{background-color: blue;}
+
+.dropDown:hover .dropDownContent {display: block;}
+
+.dropDown:hover .dropDownButton{background-color: lightgreen;}
+
+.row{
+    display: flex;
+}
+
+.column1{
+    flex: 60%; 
+    padding: 15px;
+}
+
+.column2{
+    flex: 40%;
+    padding: 15px;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+textarea {
+    margin: 10px;
+}
+
+#calculator{
+    margin: 25px;
+}

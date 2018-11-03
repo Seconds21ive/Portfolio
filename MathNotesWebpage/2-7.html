@@ -1,0 +1,104 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <title>2.7 Rates of Change</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <h1>Section 2.7 - Rates of Change</h1>
+        <div class="navBar">
+
+                <div class="dropDown">
+                    <a href="main.html"><button class="dropDownButton">Main</button></a>
+                </div>
+        
+                <div class="dropDown">
+                    <button class="dropDownButton">Downloads</button>
+                    <div class="dropDownContent">
+                        <a href="Notes/unit+circle.pdf" download>Unit Circle</a>
+                    </div>
+                </div>
+        
+                <div class="dropDown">
+                    <button class="dropDownButton">Exam 1 Material</button>
+                    <div class="dropDownContent">
+                    <a>Dummy Material</a>
+                    </div>
+                </div>
+        
+            
+                <div class="dropDown">
+                    <button class="dropDownButton">Exam 2 Material</button>
+                    <div class="dropDownContent">
+                            <a href="2-7.html" id="test">2.7 Rates of Change</a>
+                            <a href="2-8.html">2.8 Related Rates</a>
+                            <a href="2-9.html">2.9 Linear Approximations & Differentials</a>
+                            <a href="3-1.html">3.1 Maximum & Minimum Values</a>
+                            <a href="3-2.html">3.2 The Mean Value Theorem</a>
+                            <a href="3-3.html">3.3 Derivatives and the Shape of a Graph</a>
+                            <a href="3-4.html">3.4 Limits at Infinity; Horizontal Asymptotes</a>
+                            <a href="3-5.html">3.5 Summary of Curve Sketching</a>
+                            <a href="3-2-3-5Worksheet.html">3.2 - 3.5 Worksheet</a>
+                            <a href="practiceExam.html">Practice Exam</a>
+                    </div>
+                </div>
+
+                <div class="dropDown">
+                    <a href="Notes/2.7+COMPLETE.pdf" download><button class="dropDownButton">Download Notes</button></a>
+                </div>
+            </div>
+            <br><br>
+        
+            <div class="row">
+                <div class="column1"><embed src="Notes/2.7+COMPLETE.pdf" width="100%" height="1000px" /></div>
+                <div class="column2">
+                    <p>Quadratic Equation</p>
+                    <p>A: <input type="text" id="A"></p>
+                    <p>B: <input type="text" id="B"></p>
+                    <p>C: <input type="text" id="C"></p>
+                    <button onclick="quadraticEquation()" id="testEventListener">Solve</button><br>
+                    <p>Positive Answer<textarea rows="1" cols="10" id="PositiveAnswer"></textarea></p>
+                    <p>Negative Answer<textarea rows="1" cols="10" id="NegativeAnswer"></textarea></p>
+                    <br>
+                    <p>When is a particle speeding up or slowing down?</p>
+                    <img src="Pictures/ParticleSpeedingUp.jpg" width="600px" height="300px">
+
+                </div>
+            </div>
+
+
+        
+
+    <script> 
+        document.getElementById("testEventListener").addEventListener("mouseover", function() {console.log("Hovered over"); });
+        document.getElementById("C").addEventListener("keyup", function(){
+        let a = parseFloat(document.getElementById("A").value);
+        let b = parseFloat(document.getElementById("B").value);
+        let c = parseFloat(document.getElementById("C").value); 
+
+        //What are all the cases where a quadratic function can't be computed?
+        let positiveAnswer = ((b * -1) + Math.sqrt(Math.pow(b,2) - (4 * a * c))) / (2 * a);
+        let negativeAnswer = ((b * -1) - Math.sqrt(Math.pow(b,2) - (4 * a * c))) / (2 * a);
+
+        document.getElementById("PositiveAnswer").value = positiveAnswer;
+        document.getElementById("NegativeAnswer").value = negativeAnswer;
+        })
+        function testFunction(){
+            console.log("Hovered over");
+        }
+        //build live rendering version of this function
+        let a = parseFloat(document.getElementById("A").value);
+        let b = parseFloat(document.getElementById("B").value);
+        let c = parseFloat(document.getElementById("C").value); 
+
+        //What are all the cases where a quadratic function can't be computed?
+        let positiveAnswer = ((b * -1) + Math.sqrt(Math.pow(b,2) - (4 * a * c))) / (2 * a);
+        let negativeAnswer = ((b * -1) - Math.sqrt(Math.pow(b,2) - (4 * a * c))) / (2 * a);
+        console.log(a);
+        if(isNaN(a) && isNaN(b) && isNaN(c)){
+            console.log("Reached");
+        }
+        
+    </script>
+</body>

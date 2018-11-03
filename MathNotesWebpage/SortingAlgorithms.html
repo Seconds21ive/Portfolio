@@ -1,0 +1,177 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Sorting Algorithms</title>
+    <style>
+    p{
+        margin: 0px;
+        padding: 0px;
+        color: red;
+    }
+    </style>
+</head>
+<body>
+<div id="sort"></div>
+<button type="button" onclick="item.print()">Sort</button>
+
+
+</body>
+
+<script>
+
+
+    /*
+var arr = (size) => {
+    var temp = [];
+    for(let i = 0; i < size; ++i){
+        temp.push(Math.floor(Math.random() * 1000));
+    }
+    return temp;
+};
+*/
+
+class BaseSort{
+    constructor(size){
+        this.numOfElements = 20;
+        this.size = size;
+        this.arr = [];
+        this.loadItems();
+    }
+
+    print(){
+        //What am I t rying to make happen
+        //Create a table that shows the number found in that index of the array and display that with an asterisk *
+        //I can do it a couple of ways, I can do it using ids, or I can do it on the fly every time.
+
+        let create2dArray = function (rows) {
+            var arr = [];
+
+            for (var i=0; i<rows; i++) {
+                arr[i] = [];
+            }
+
+            return arr;
+            }
+
+        console.log(this.size);
+        let test = create2dArray(this.numOfElements);
+
+            
+        for(let i = 0; i < this.numOfElements; ++i){
+            test[this.numOfElements-1][i] = this.arr[i];
+        }
+        
+        let newTable = document.getElementById("sort").innerHTML;
+        //console.log(table);
+
+        let count = 0;
+        //console.log(this.numOfElements);
+        //counter for the specific number, and use a decrement to get to my spot
+        for(let i = (this.numOfElements - 2); i > -1; --i){
+            for(let j = this.numOfElements; j > -1; --j){
+                if(test[this.numOfElements - 1][j] > count){
+                    //console.log("should print a value above at index: " + i + ", " + j);
+                    test[i][j] = "*";
+                }
+                else{
+                    test[i][j] = '';
+                }
+            } 
+            ++count;
+        }
+
+        var table = "<table>";
+        for(let i = 0; i < this.numOfElements; ++i){
+            table += "<tr>";
+            for(let j = 0; j < this.numOfElements; ++j){
+                //table += "<td>" + "(" + i + ", " + j + ")" + "</td>";
+                table += "<td>" + test[i][j] + "</td>";
+            }
+            table += "</tr>";
+        }
+
+        table += "</table>";
+
+        document.getElementById("sort").innerHTML = table;
+
+
+    }
+
+    loadItems(){
+        for(let i = 0; i < this.size; ++i){
+            this.arr.push(Math.floor(Math.random() * 19 + 1));
+        }
+    }
+
+    verifySort(){
+        for(let i = 0; i < this.size - 1; ++i){
+            if(this.arr[i] > this.arr[i + 1]){
+                console.log("Not Sorted");
+                return;
+            }
+        }
+        console.log("Sorted");
+    }
+
+    printHistogram(){
+        var table = "";
+        for(let i = 0; i < this.size; ++i){
+            table += "<p id=" + i + ">";
+            for(let j = 0; j < this.arr[i]; ++j){
+                table += '|';
+            }
+            table += '</p>';
+        }
+
+        document.write(table);
+        //console.log(table);
+    }
+};
+
+class SelectionSort extends BaseSort{
+    constructor(size){
+        super(size);
+    }
+
+    sort(){
+        //let t1 = new Date().getMilliseconds();
+        for(let i = 0; i < this.size - 1; ++i){
+            var smallestIndex = i;
+            for(let k = i + 1; k < this.size; k++){
+                if(this.arr[k] < this.arr[smallestIndex]){
+                    smallestIndex = k;
+                }
+            }
+            var temp = this.arr[smallestIndex];
+            this.arr[smallestIndex] = this.arr[i];
+            this.arr[i] = temp;
+        }
+        //let t2 = new Date().getMilliseconds();
+
+        //console.log(t2 - t1);
+    }
+};
+
+// class bubbleSort extends BaseSort{
+//     constuctor(size){
+//         super(size);
+//     }
+
+//     sort(){
+        
+//     }
+// }
+
+var item = new SelectionSort(20);
+//console.log(item.print());
+item.print();
+item.sort();
+//window.setTimeout(item.print(), 25000);
+//item.print();
+//item.print();
+
+
+
+</script>
+</html>

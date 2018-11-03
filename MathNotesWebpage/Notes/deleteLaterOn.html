@@ -1,0 +1,24 @@
+<!doctype html>
+<head><title>Testing</title><meta charset="utf-8"></head>
+<body>
+    <script>
+    
+    equation(3.1);
+    equation(3.01);
+    equation(3.001);
+    equation(3.0001);
+    equation(3.00001);
+    equation(3.00000000000001);
+    equation(3.2);
+
+    function equation(x){
+        let numerator = 2 * (Math.pow(x, 2)) - 5 * x - 3;
+        let denominator = Math.pow(x, 2) - 5 * x + 6;
+
+        let finalAnswer = numerator / denominator;
+
+        console.log(finalAnswer);
+    }
+
+    </script>
+</body>
