@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku Puzzle</title>
+    <style>
+        button{
+            background-color: green;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 20px;
+        }
+        
+        table input{
+            border: none;
+        }
+       
+        table td{
+            border: thick solid black;
+            margin-top: 25px;
+            margin-bottom: 25px;
+            
+        }
+    </style>
+    
+    
+    
+</head>
+<body>
+    <!-- Script to create the sudoku table -->
+    <script>
+        var table = '<table style=\"border-collapse: collapse\"';
+        
+        
+        for(var i = 0; i < 9; i++){
+            table += '<tr>';
+            for(var j = 0; j < 9; j++){
+                table += '<td><input type=text size=5 id=row' + i + 'col' + j + '></td>';
+            }
+            table += '</tr>';
+        }
+        document.write('<table border = 1>' + table + '</table>');
+    </script>
+
+    <br>
+    <button type="button" onclick="solve()">Solve</button>
+    <button type="button" onclick="clearArray()">Clear</button>   
+</body>
+</html>
+
+
+
+<script>
+//Two Dimensional array works as follows: []Row[]Column
+    var sudokuPuzzle = [['', '', '', '', '', '', '', '', ''],
+                        ['', '', '', '', '', '', '', '', ''],
+                        ['', '', '', '', '', '', '', '', ''],
+                        ['', '', '', '', '', '', '', '', ''],
+                        ['', '', '', '', '', '', '', '', ''],
+                        ['', '', '', '', '', '', '', '', ''],
+                        ['', '', '', '', '', '', '', '', ''],
+                        ['', '', '', '', '', '', '', '', ''],
+                        ['', '', '', '', '', '', '', '', '']]; 
+ 
+    //-----------------------------------------------------------------------------
+    //Perform all the checking and works with button ClickMe
+    function solve(){    
+        //saveSudokuPuzzle();
+        
+        
+        //testCaseSolveSudokuPuzzle();
+        writePuzzleToScreen();
+        saveSudokuPuzzle();
+        lookForUserInput();
+        
+        //runTestCases();
+        
+        
+        var counter = 0;
+        while(counter < 10){ //Need to create a bool to change this instead of just shooting out a random number
+                for(let i = 0; i < 9; i++){
+                    for(let j = 0; j < 9; j++){
+                        if(sudokuPuzzle[i][j] == ''){
+                            let temp = checkRowColAndSquare(i, j);
+                            if(temp.length == 1){
+                                let newId = "row" + i + "col" + j;
+                                document.getElementById(newId).value = temp;
+                                sudokuPuzzle[i][j] = temp;
+                            }
+                            else{
+                            console.log("At Coordinate: " + j + ", " + i + ", the options are: " + temp.toString());
+                            
+                            }
+                        }
+                    }
+                    
+                }
+
+            console.log("Loop run at " + counter);
+            ++counter;
+        }
+        
+        //writeTheMarkUpToTheTable();
+    }
+    
+    function lookForUserInput(){
+        for(let i = 0; i < 9; i++){
+            for(let j = 0; j < 9; j++){
+                let newId = "row" + i + "col" + j;
+                if(document.getElementById(newId).value != ''){
+                    sudokuPuzzle[i][j] = document.getElementById(newId).value;
+                }
+            }
+        }
+    }
+    
+    function runTestCases(){
+        testCaseSolveSudokuPuzzle(); //This gives me a sample sudoku puzzle
+        saveSudokuPuzzle(); //converts the values that are saved into the html into my js
+        writePuzzleToScreen(); //Writes all values to the screen
+    }
+    
+    function testCaseSolveSudokuPuzzle(){
+        //Medium Sudoku Puzzle
+        //Solves this one as well
+        /*
+        sudokuPuzzle = [[8, 9, 2, '', '', 3, '', 1, 4],
+                        ['', '', '', '', '', '', '', '', ''],
+                        ['', '', '', '', 6, 8, '', 7, ''],
+                        [4, 5, '', '', 8, '', '', '', 1],
+                        ['', '', 8, '', '', '', 2, '', ''],
+                        [1, '', 3, 7, '', '', 5, '', ''],
+                        ['', 7, 1, '', '', 6, '', 5, ''],
+                        [5, '', 9, 2, '', '', '', 8, ''],
+                        [6, '', '', '', '', 7, '', '', 9]];
+        */
+        /*
+        //Solved Puzzle
+        sudokuPuzzle = [[4, 3, 5, 2, 6, 9, 7, 8, 1],
+                        [6, 8, 2, 5, 7, 1, 4, 9, 3],
+                        [1, 9, 7, 8, 3, 4, 5, 6, 2],
+                        [8, 2, 6, 1, 9, 5, 3, 4, 7],
+                        [3, 7, 4, 6, 8, 2, 9, 1, 5],
+                        [9, 5, 1, 7, 4, 3, 6, 2, 8],
+                        [5, 1, 9, 3, 2, 6, 8, 7, 4],
+                        [2, 4, 8, 9, 5, 7, 1, 3, 6],
+                        [7, 6, 3, 4, 1, 8, 2, 5, 9]];
+                        */
+        
+        //Easy Sudoku Puzzle to solve
+        //Code now solves this puzzle completely
+        /*
+        sudokuPuzzle = [['', 6, '', 3, '', '', 8, '', 4],
+                        [5, 3, 7, '', 9, '', '', '', ''],
+                        ['', 4, '', '', '', 6, 3, '', 7],
+                        ['', 9, '', '', 5, 1, 2, 3, 8],
+                        ['', '', '', '', '', '', '', '', ''],
+                        [7, 1, 3, 6, 2, '', '', 4, ''],
+                        [3, '', 6, 4, '', '', '', 1, ''],
+                        ['', '', '', '', 6, '', 5, 2, 3],
+                        [1, '', 2, '', '', 9, '', 8, '']];
+                        */
+        
+        //Hard Puzzle
+        
+        sudokuPuzzle = [['', 4, 6, '', '', 5, 7, '', ''],
+                        ['', '', '', 9, '', '', '', '', ''],
+                        ['', 9, '', '', '', 1, '', '', 6],
+                        ['', '', '', '', '', '', 9, '', ''],
+                        ['', 3, '', '', '', '', '', '', ''],
+                        [4, '', '', 5, 2, '', '', '', 8],
+                        ['', 8, '', '', '', '', '', 7, ''],
+                        [5, 7, '', 3, '', '', '', 8, 2],
+                        [2, '', '', '', '', '', 3, '', '']];
+        
+    }
+    
+    function saveSudokuPuzzle(){
+        
+        for(var i = 0; i < 9; i++){
+            for(var j = 0; j < 9; j++){
+                var newId = "row" + i + "col" + j;
+                var value = document.getElementById(newId).value;
+                if(document.getElementById(newId).value == ''){
+                    //console.log("Value is null");
+                    //sudokuPuzzle[i][j] = value;
+                }
+                else{
+                    sudokuPuzzle[i][j] = value;
+                }
+            }
+        }
+    }
+    
+    function writePuzzleToScreen(){
+        for(var i = 0; i < 9; i++){
+            for(var j = 0; j < 9; j++){
+                var newId = "row" + i + "col" + j;
+                var num = sudokuPuzzle[i][j];
+
+                document.getElementById(newId).value = num;
+            }
+        }
+    }
+    
+    function clearArray(){
+    for(var i = 0; i < 9; i++){
+        for(var j = 0; j < 9; j++){
+            var newId = "row" + i + "col" + j;
+            document.getElementById(newId).value = '';
+        }
+    }
+    //-----------------------------------------------------------------------------
+        
+    //writeSudokuPuzzleToScreen();
+} 
+    function checkRowColAndSquare(xCoordinate, yCoordinate){
+        var possibleNumberOptions = [];
+        var hasNumber = false;
+        var rowToCheck = xCoordinate;
+        var colToCheck = yCoordinate;
+        
+        var squareStartingPosition = determineWhereTheSquareIs(xCoordinate, yCoordinate);
+        
+        //Loop to check the row, Column, & Square
+        for(var numToCheck = 1; numToCheck < 10; numToCheck++){
+            
+            for(var i = 0; i < 9; i++){
+                //This loop will analyze the options in the row and the column
+                if(sudokuPuzzle[rowToCheck][i] == numToCheck || sudokuPuzzle[i][colToCheck] == numToCheck){
+                    hasNumber = true;
+                    break;
+                }
+            }
+            
+            
+            for(var row = squareStartingPosition.x; row < squareStartingPosition.x + 3; row++){
+                if(hasNumber){
+                    break;
+                }
+                for(var col = squareStartingPosition.y; col < squareStartingPosition.y + 3; col++){
+                    //This loop will analyze the options in the Square
+                    if(sudokuPuzzle[row][col] == numToCheck){
+                        hasNumber = true;
+                    }
+                }
+            }
+            
+            if(!hasNumber){
+                possibleNumberOptions.push(numToCheck);
+            }
+            else{
+                hasNumber = false;
+            }
+            
+        }
+        
+        return possibleNumberOptions;
+    }
+    
+    
+    function determineWhereTheSquareIs(xCoord, yCoord){
+        //Square 1 is (0,0) - (2, 2)
+        //Square 2 is (3,0) - (5, 2)
+        //Square 3 is (6,0) - (8, 2)
+        //Square 4 is (0,3) - (2, 5)
+        //Square 5 is (3,3) - (5, 5)
+        //Square 6 is (6,3) - (8, 5)
+        //Square 7 is (0,6) - (3, 8)
+        //Square 8 is (3,6) - (5, 8)
+        //Square 9 is (6,6) - (8, 8)
+        
+        var xStartingCoord;
+        if(xCoord >= 0 && xCoord<= 2){
+            xStartingCoord = 0;
+        }
+        else if(xCoord >= 3 && xCoord <= 5){
+            xStartingCoord = 3;
+        }
+        else if(xCoord >= 6 && xCoord <= 8){
+            xStartingCoord = 6;
+        }
+        
+        var yStartingCoord;
+        if(yCoord >= 0 && yCoord <= 2){
+            yStartingCoord = 0;
+        }
+        else if(yCoord >= 3 && yCoord <= 5){
+            yStartingCoord = 3;
+        }
+        else if(yCoord >= 6 && yCoord <= 8){
+            yStartingCoord = 6;
+        }
+        
+        var squareStartingLocation = {
+            x: xStartingCoord,
+            y: yStartingCoord,
+        };
+        
+        return squareStartingLocation;
+    }
+
+    
+    //-----------------------------------------------------------------
+    //These are the more complex ways to solve sudoku puzzles
+    //The cases where just looking for single options won't work,
+    //Although there will be times where I'm going to still want to run that code
+    
+    //This function will write all the notes to the table 
+    function writeTheMarkUpToTheTable(){
+        for(var i = 0; i < 9; i++){
+            for(var j = 0; j < 9; j++){
+                if(sudokuPuzzle[i][j] == ''){
+                            let temp = checkRowColAndSquare(i, j);
+                            if(temp.length == 1){
+                                let newId = "row" + i + "col" + j;
+                                document.getElementById(newId).value = temp;
+                                sudokuPuzzle[i][j] = temp;
+                            }
+                            else{
+                            //console.log("At Coordinate: " + j + ", " + i + ", the options are: " + temp.toString());
+                                let newId = "row" + i + "col" + j;
+                                sudokuPuzzle[i][j] = temp.toString();
+                                document.getElementById(newId).value = temp.toString();
+                            }
+                        }
+            }
+        }
+    }
+    
+    
+</script>
