@@ -4,13 +4,8 @@
     <title>3.9 AntiDerivatives</title>
 
     <link rel="stylesheet" type="text/css" href="../style.css">
-    <style>
-        #tableOfIntegrals{
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-    </style>
+    <!-- This is for Vue.js, I'm going to experiment here with using a button and manipulating seeing data-->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 </head>
 
 <body>
@@ -76,7 +71,7 @@
             </div>
         </div>
 
-    <img id="tableOfIntegrals" src="../Pictures/TableOfIntegrals.PNG" alt="Table Of Integrals">
+    <img class="center" src="../Pictures/TableOfIntegrals.PNG" alt="Table Of Integrals">
 
     <div class="row">
         <div class="column1">
@@ -86,11 +81,26 @@
             <img src="../Pictures/3-9HWPart4.png" alt="Homework Problems part 4">
         </div>
         <div class="column2">
-            <img src="../Pictures/3-9AnswersPart1.PNG" alt="Answers for Problems">
-            <img src="../Pictures/3-9AnswersPart2.PNG" alt="Answers for Problems">
-            
+            <input type="button" onclick="hideAnswers()" value="Show Answers" class="dropDownButton" ><br>
+            <span id="showPictures" style="display: none">
+                    <img src="../Pictures/3-9AnswersPart1.PNG" alt="Answers for Problems">
+                    <img src="../Pictures/3-9AnswersPart2.PNG" alt="Answers for Problems">
+            </span>
         </div>
     </div>
 
 </body>
 </html>
+
+<script>
+    function hideAnswers(){
+        var x = document.getElementById("showPictures");
+        if(x.style.display === "none"){
+            x.style.display = "block";
+        }
+        else{
+            x.style.display = "none";
+        }
+    }
+
+</script>
